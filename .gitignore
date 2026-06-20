@@ -1,0 +1,12 @@
+# Build outputs
+*.exe
+
+# Temporary and log files
+.txt
+
+# IDE/editor files
+.vscode/
+.pdf
+
+# Local tool caches
+.refact/
