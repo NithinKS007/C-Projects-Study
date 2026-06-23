@@ -1,4 +1,4 @@
-# Calculator Project
+# Project: Calculator
 
 This is a small C study project built to practice the core parts of C programming in a simple, hands-on way.
 
