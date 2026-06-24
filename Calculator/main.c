@@ -62,8 +62,6 @@ int main(void)
 
     char history_entry[200];
 
-    float memory_value = 0.0f;
-    float last_result = 0.0f;
     bool running = true;
 
     while (running)
@@ -74,13 +72,10 @@ int main(void)
         printf("3. Multiplication\n");
         printf("4. Division\n");
         printf("5. Modulus\n");
-        printf("6. M+\n");
-        printf("7. MR\n");
-        printf("8. MC\n");
-        printf("9. Power\n");
-        printf("10. Square Root\n");
-        printf("11. Show Saved History\n");
-        printf("12. Exit\n");
+        printf("6. Power\n");
+        printf("7. Square Root\n");
+        printf("8. Show Saved History\n");
+        printf("9. Exit\n");
 
         printf("Enter choice: ");
         if (!read_choice(&choice))
@@ -102,7 +97,6 @@ int main(void)
             }
 
             result = addition(num1, num2);
-            last_result = result;
             printf("Result = %.2f\n", result);
 
             snprintf(history_entry, sizeof(history_entry), "%.2f + %.2f = %.2f", num1, num2, result);
@@ -121,7 +115,6 @@ int main(void)
             }
 
             result = subtraction(num1, num2);
-            last_result = result;
             printf("Result = %.2f\n", result);
 
             snprintf(history_entry, sizeof(history_entry), "%.2f - %.2f = %.2f", num1, num2, result);
@@ -140,7 +133,6 @@ int main(void)
             }
 
             result = multiplication(num1, num2);
-            last_result = result;
             printf("Result = %.2f\n", result);
 
             snprintf(history_entry, sizeof(history_entry), "%.2f * %.2f = %.2f", num1, num2, result);
@@ -165,7 +157,6 @@ int main(void)
             }
 
             result = division(num1, num2);
-            last_result = result;
             printf("Result = %.2f\n", result);
 
             snprintf(history_entry, sizeof(history_entry), "%.2f / %.2f = %.2f", num1, num2, result);
@@ -190,7 +181,6 @@ int main(void)
             }
 
             result = (float)modulus(int_num1, int_num2);
-            last_result = result;
             printf("Result = %.2f\n", result);
 
             snprintf(history_entry, sizeof(history_entry), "%d %% %d = %.2f", int_num1, int_num2, result);
@@ -198,20 +188,6 @@ int main(void)
             break;
 
         case 6:
-            memory_value = last_result;
-            printf("Stored %.2f in memory\n", memory_value);
-            break;
-
-        case 7:
-            printf("Memory = %.2f\n", memory_value);
-            break;
-
-        case 8:
-            memory_value = 0.0f;
-            printf("Memory cleared\n");
-            break;
-
-        case 9:
             if (!read_float("Enter first number: ", &num1))
             {
                 continue;
@@ -223,14 +199,13 @@ int main(void)
             }
 
             result = power(num1, num2);
-            last_result = result;
             printf("Result = %.2f\n", result);
 
             snprintf(history_entry, sizeof(history_entry), "%.2f ^ %.2f = %.2f", num1, num2, result);
             save_history(history_entry);
             break;
 
-        case 10:
+        case 7:
             if (!read_float("Enter number: ", &num1))
             {
                 continue;
@@ -243,18 +218,17 @@ int main(void)
             }
 
             result = square_root(num1);
-            last_result = result;
             printf("Result = %.2f\n", result);
 
             snprintf(history_entry, sizeof(history_entry), "sqrt(%.2f) = %.2f", num1, result);
             save_history(history_entry);
             break;
 
-        case 11:
+        case 8:
             show_history();
             break;
 
-        case 12:
+        case 9:
             printf("Thank you!\n");
             running = false;
             break;

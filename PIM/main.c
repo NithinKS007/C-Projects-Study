@@ -5,21 +5,25 @@
 
 int main()
 {
+    // Menu variables store the user's current choice at each screen.
     int main_menu_choice;
     int user_menu_choice;
     int dashboard_choice;
     int contact_menu_choice;
 
+    // Fixed-size buffers keep the code simple and avoid dynamic allocation.
     char name[20];
     char password[10];
     char data[100];
 
+    // Small structure used to hold one contact record in memory.
     struct Contact
     {
         char name[20];
         char phone[20];
     };
 
+    // Top-level loop keeps the program running until the user chooses Exit.
     while (1)
     {
         printf("\n===== PERSONAL INFORMATION MANAGER =====\n");
@@ -34,6 +38,7 @@ int main()
         {
         case 1:
 
+            // User menu for registration, login, and returning to the main menu.
             while (1)
             {
                 printf("\n===== USER SYSTEM =====\n");
@@ -53,6 +58,7 @@ int main()
                 {
                 case 1:
 
+                    // Registration writes a new username/password pair to users.txt.
                     printf("\nRegistration\n");
 
                     printf("Enter Username: ");
@@ -63,9 +69,11 @@ int main()
 
                     if (find_data("users.txt", name))
                     {
+                        // Stop if the username already exists in the file.
                         break;
                     }
 
+                    // Combine the username and password into one text record.
                     sprintf(data, "%s %s", name, password);
 
                     if (save_to_file("users.txt", data))
@@ -77,6 +85,7 @@ int main()
 
                 case 2:
 
+                    // Login checks that both fields match a stored user record.
                     printf("\nLogin\n");
 
                     printf("Enter Username: ");
@@ -90,6 +99,7 @@ int main()
                             name,
                             password))
                     {
+                        // Dashboard stays open after login until the user logs out.
                         while (1)
                         {
                             printf("\n===== DASHBOARD =====\n");
@@ -105,6 +115,7 @@ int main()
                             {
                             case 1:
 
+                                // Show the profile tied to the logged-in username.
                                 view_profile(
                                     "users.txt",
                                     name);
@@ -115,6 +126,7 @@ int main()
 
                                 printf("Logout Successful\n");
 
+                                // Leave the dashboard and return to the user menu.
                                 goto dashboard_exit;
 
                             default:
@@ -138,8 +150,10 @@ int main()
 
         case 2:
         {
+            // One local contact object is reused for add/search/update/delete.
             struct Contact contact;
 
+            // Contact menu loop keeps showing options until the user goes back.
             while (1)
             {
                 printf("\n===== CONTACT MANAGER =====\n");
@@ -148,6 +162,7 @@ int main()
                 switch (contact_menu_choice)
                 {
                 case 1:
+                    // Read a contact and store it in the contacts file.
                     printf("Enter Contact Name:");
                     scanf("%19s", contact.name);
                     printf("Enter Contact Number:");
@@ -157,20 +172,24 @@ int main()
                     break;
 
                 case 2:
+                    // Display every saved contact.
                     view_contacts("contacts.txt");
                     break;
 
                 case 3:
+                    // Look up a contact by name.
                     printf("Enter Contact Name:");
                     scanf("%19s", contact.name);
                     search_contact("contacts.txt", contact.name);
                     break;
                 case 4:
+                    // Replace the stored phone number for a matching contact.
                     printf("Enter Contact Name:");
                     scanf("%19s", contact.name);
                     update_contact("contacts.txt", contact.name);
                     break;
                 case 5:
+                    // Remove the matching contact from the file.
                     printf("Enter Contact Name:");
                     scanf("%s", contact.name);
                     delete_contact("contacts.txt", contact.name);
@@ -192,6 +211,7 @@ int main()
         }
         case 3:
 
+            // End the program.
             printf("Goodbye\n");
             return 0;
 

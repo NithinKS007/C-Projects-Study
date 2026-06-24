@@ -4,6 +4,7 @@
 
 int save_to_file(char file_name[], char data[])
 {
+    // Open the file in append mode so a new record is added at the end.
     FILE *file = fopen(file_name, "a");
 
     if (file == NULL)
@@ -12,6 +13,7 @@ int save_to_file(char file_name[], char data[])
         return 0;
     }
 
+    // Save the prepared "name password" text as one line in the file.
     fprintf(file, "%s\n", data);
 
     fclose(file);
@@ -21,6 +23,7 @@ int save_to_file(char file_name[], char data[])
 
 int find_data(char file_name[], char data[])
 {
+    // Open the user file for reading so we can check whether the name exists.
     FILE *file = fopen(file_name, "r");
 
     char name[20];
@@ -31,6 +34,7 @@ int find_data(char file_name[], char data[])
         return 0;
     }
 
+    // Each loop reads one stored username/password pair from the file.
     while (fscanf(file,
                   "%19s %19s",
                   name,
@@ -57,6 +61,7 @@ int find_name_and_password(
     char entered_password[]
 )
 {
+    // Open the file and compare every stored credential pair with the input.
     FILE *file = fopen(file_name, "r");
 
     char name[20];
@@ -67,6 +72,7 @@ int find_name_and_password(
         return 0;
     }
 
+    // strcmp returns 0 when two strings match exactly.
     while (fscanf(file,
                   "%19s %19s",
                   name,
@@ -97,6 +103,7 @@ void view_profile(
     char entered_name[]
 )
 {
+    // Open the user file so we can find the logged-in username.
     FILE *file = fopen(file_name, "r");
 
     char name[20];
@@ -108,6 +115,7 @@ void view_profile(
         return;
     }
 
+    // Search for the matching record and print the username when found.
     while (fscanf(file,
                   "%19s %19s",
                   name,
